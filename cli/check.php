@@ -26,3 +26,8 @@ echo sprintf('Doğrulanıyor... ');
 $result = $eDevlet->dogrula($file);
 var_dump($result);
 echo sprintf('%s' . "\r\n", $result === true ? 'Geçerli' : ($result === false ? 'Geçersiz' : 'Bağlantı problemi lütfen tekrar deneyin'));
+
+$adSoyad = $eDevlet->get_adSoyad();
+$tcNo = $eDevlet->get_kimlikNo();
+
+echo $adSoyad." ".$tcNo;

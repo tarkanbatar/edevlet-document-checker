@@ -47,6 +47,8 @@ class Dogrula
 	 */
 	private $kimlikNo;
 
+	private $isimSoyisim;
+
 	/**
 	 * Pdf Body
 	 * @var string
@@ -124,6 +126,7 @@ class Dogrula
 	{
 		$this->pdfBody = str_replace("\r\n", "\n", (string)(new Parser())->parseFile($this->file)->getText());
 		$pdf = explode("\n", $this->pdfBody);
+		$this->isimSoyisim = substr(str_ireplace("Adý / Soyadý"," ",$pdf[8]),2,14);
 		$this->kimlikNo = $this->getPart('/(\d+)\sT.C. Kimlik No/', $this->pdfBody);
 		$this->barkod = reset($pdf);
 		if (strpos($this->pdfBody, $this->kimlikNo) === false) {
@@ -133,6 +136,14 @@ class Dogrula
 			return false;
 		}
 		return true;
+	}
+
+	public function get_kimlikNo(){
+		return $this->kimlikNo;
+	}
+
+	public function get_adSoyad(){
+		return $this->isimSoyisim;
 	}
 
 	private function get_token()

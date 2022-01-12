@@ -1,12 +1,12 @@
 {
     "name": "bdogan/edevlet-belge-dogrulama",
     "type": "library",
-    "description": "E-Devlet üzerinden alınan pdf dosyasının doğruluğunu sorgular",
-    "homepage": "http://guzzlephp.org",
+    "description": "E-Devlet üzerinden alınan pdf dosyasının doğruluğunu kontrol eder",
+    "homepage": "https://www.tarkanbatar.com",
     "authors": [
         {
-            "name": "Burak Doğan",
-            "email": "me@burak-dogan.com"
+            "name": "Tarkan Batar",
+            "email": "tarkanbatar4@gmail.com"
         }
     ],
     "require": {

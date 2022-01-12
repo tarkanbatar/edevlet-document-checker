@@ -33,7 +33,7 @@ class Dogrula
 	 * Version
 	 * @var string
 	 */
-	public $version = '1.0.0';
+	public $version = '1.1.0';
 
 	/**
 	 * File to be validated
@@ -122,13 +122,22 @@ class Dogrula
 		return $m && isset($m[1]) ? $m[1] : null;
 	}
 
+	function transliterateTurkishChars($inputText) {
+    $search  = array('ç', 'Ç', 'ð', 'Ð', 'ý', 'Ý', 'ö', 'Ö', 'þ', 'Þ', 'ü', 'Ü');
+    $replace = array('c', 'C', 'g', 'G', 'i', 'I', 'o', 'O', 's', 'S', 'u', 'U');
+    $outputText=str_replace($search, $replace, $inputText);
+    return $outputText;
+	}
+
 	private function parse_pdf()
 	{
 		$this->pdfBody = str_replace("\r\n", "\n", (string)(new Parser())->parseFile($this->file)->getText());
+		$this->pdfBody = $this->transliterateTurkishChars($this->pdfBody);
 		$pdf = explode("\n", $this->pdfBody);
-		$this->isimSoyisim = substr(str_ireplace("Adý / Soyadý"," ",$pdf[8]),2,14);
+		$this->isimSoyisim = substr(str_ireplace("Adi / Soyadi"," ",$pdf[8]),2,14);
 		$this->kimlikNo = $this->getPart('/(\d+)\sT.C. Kimlik No/', $this->pdfBody);
 		$this->barkod = reset($pdf);
+		echo $this->barkod;
 		if (strpos($this->pdfBody, $this->kimlikNo) === false) {
 			return false;
 		}
